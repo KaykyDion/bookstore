@@ -5,7 +5,7 @@ from product.serializers.category_serializer import CategorySerializer
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    category = CategorySerializer(read_only=True, many=True)
+    categories = CategorySerializer(read_only=True, many=True)
     categories_id = serializers.PrimaryKeyRelatedField(
         queryset=Category.objects.all(), write_only=True, many=True
     )
@@ -18,7 +18,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "description",
             "price",
             "active",
-            "category",
+            "categories",
             "categories_id",
         ]
 
@@ -27,6 +27,6 @@ class ProductSerializer(serializers.ModelSerializer):
 
         product = Product.objects.create(**validated_data)
         for category in category_data:
-            product.category.add(category)
+            product.categories.add(category)
 
         return product
