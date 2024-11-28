@@ -1,11 +1,13 @@
 name: Python Pull Request Workflow
-on: [pull_request]
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
 jobs:
   qa:
     name: Quality check
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@master
         with:
